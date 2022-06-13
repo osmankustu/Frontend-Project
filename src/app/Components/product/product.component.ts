@@ -1,8 +1,8 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
-import {HttpClient} from '@angular/common/http';
 import { productRespnseModel } from 'src/app/models/productResponseModel';
+import { ProductService } from 'src/app/services/product.service';
 
 //axios-fetch
 @Component({
@@ -11,14 +11,11 @@ import { productRespnseModel } from 'src/app/models/productResponseModel';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-
-  ApiUrl = "https://localhost:44353/api/products/getall";
-
   Products:Product[] = [];
+  dataLoaded = false;
   
   
-  
-  constructor(private HttpClient:HttpClient) { }
+  constructor(private productService:ProductService ) { }
 
   ngOnInit(): void {
     
@@ -27,9 +24,9 @@ export class ProductComponent implements OnInit {
   }
   
   getProducts() {
-    this.HttpClient.get<productRespnseModel>(this.ApiUrl)
-    .subscribe((Response) => {
-      this.Products = Response.data
-    } );
+    this.productService.getProducts().subscribe(Response => {
+      this.Products = Response.data;
+      this.dataLoaded = true;
+    });
   }
 }
