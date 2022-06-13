@@ -27,7 +27,8 @@ export class ProductComponent implements OnInit {
   }
   
   getProducts() {
-    this.HttpClient.get<productRespnseModel>(this.ApiUrl).subscribe((Response) => {
+    this.HttpClient.get<productRespnseModel>(this.ApiUrl)
+    .subscribe((Response) => {
       this.Products = Response.data
     } );
   }
