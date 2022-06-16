@@ -15,7 +15,7 @@ export class ProductComponent implements OnInit {
   Products:Product[] = [];
   
   dataLoaded = false;
-  
+  filterText="";  
   
   constructor(
     private productService:ProductService, 
@@ -50,5 +50,6 @@ export class ProductComponent implements OnInit {
     this.dataLoaded = true;
   });
 }
+
   
 }
