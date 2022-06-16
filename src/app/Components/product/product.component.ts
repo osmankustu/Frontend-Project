@@ -1,8 +1,10 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/product';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 
 //axios-fetch
@@ -19,7 +21,9 @@ export class ProductComponent implements OnInit {
   
   constructor(
     private productService:ProductService, 
-    private activatedRoute:ActivatedRoute ) { }
+    private activatedRoute:ActivatedRoute,
+    private toastrService:ToastrService,
+    private cartService:CartService ) { }
 
   ngOnInit(): void {
    
@@ -51,9 +55,21 @@ export class ProductComponent implements OnInit {
   });
 }
 
- serachForProducts(){
+ addToChart(product:Product){
 
+  if(product.unitsInStock != 1) {
   
-
+    this.toastrService.success("Sepete Eklendi " + product.productName);
+    this.cartService.addToCart(product);
+    
+    
+  }
+  else{
+    this.toastrService.error("Ürün Stoku Kalmadığı İçin Sepete Eklenemedi ! " + product.unitsInStock );
+    }
+  
+    
  }
+
+
 }

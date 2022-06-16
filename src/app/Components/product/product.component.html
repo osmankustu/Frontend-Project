@@ -19,8 +19,10 @@
         <th>Fiyat</th>
         <th>Kdv'li Fiyat</th>
         <th>Stok Adedi</th>
+        <th></th>
     </tr>
    </thead>
+   <tbody>
     <tr *ngFor="let p of Products | filterPipe:filterText">
         <td >{{p.productId}}</td>
         <td>{{ p.productName }}</td> 
@@ -28,5 +30,7 @@
         <td>{{p.unitPrice | currency}}</td>
         <td>{{p.unitPrice |vatAdded:18 | currency}} </td>
         <td>{{p.unitsInStock}}</td>
+        <td><button  class="btn btn-success" (click)="addToChart(p)">Sepete Ekle</button></td>
     </tr>
+</tbody>
 </table>
