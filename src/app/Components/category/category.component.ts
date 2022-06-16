@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { resetFakeAsyncZone } from '@angular/core/testing';
+import { Category } from 'src/app/models/category';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-category',
@@ -6,10 +9,47 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
+    
+  categories : Category[]=[];
+  currentCategory : Category;
 
-  constructor() { }
+  constructor(private categoryService : CategoryService) { }
 
   ngOnInit(): void {
+    this.getCategories();
   }
 
-}
+  getCategories() {
+    this.categoryService.getCategories().subscribe(Response => {
+      this.categories = Response.data;
+    
+    })
+  }
+
+  setCurrentCategory(category:Category){
+        this.currentCategory = category;
+  }
+
+  getCurrentCategoryClass(category:Category){
+    if(category == this.currentCategory){
+      return "list-group-item active";
+    }
+    else{
+      return "list-group-item";
+    }
+  }
+
+  getAllCategoryClass() {
+    if(!this.currentCategory){
+      
+      return "list-group-item active";
+    }
+    else{
+      return "list-group-item";
+    }
+  }
+  
+ 
+  }
+
+
