@@ -21,7 +21,7 @@
         <th>Stok Adedi</th>
     </tr>
    </thead>
-    <tr *ngFor="let p of Products">
+    <tr *ngFor="let p of Products | filterPipe:filterText">
         <td >{{p.productId}}</td>
         <td>{{ p.productName }}</td> 
         <td>{{p.categoryId}}</td>
