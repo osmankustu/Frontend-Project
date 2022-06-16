@@ -51,5 +51,9 @@ export class ProductComponent implements OnInit {
   });
 }
 
+ serachForProducts(){
+
   
+
+ }
 }
