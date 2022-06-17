@@ -3,9 +3,9 @@
       Sepetiniz
     </a>
     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-      <li *ngFor="let cart of cartItems">
+      <li *ngFor="let cart of cartItems"><span class="badge text-bg-secondary">{{cart.quantity}}</span>
         <a  class="dropdown-item" >
-            {{cart.product.productName}}
+            {{cart.product.productName}}<span (click)="removeFromCart(cart.product)" class="badge text-bg-secondary">Sil</span>
         </a>
     </li>
       <li>

@@ -1,6 +1,8 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { CartItem } from 'src/app/models/cartItem';
+import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
@@ -11,7 +13,10 @@ import { CartService } from 'src/app/services/cart.service';
 export class CartSummaryComponent implements OnInit {
 cartItems:CartItem[]=[];
 
-  constructor(private cartService:CartService) { }
+  constructor(
+    private cartService:CartService,
+    private toastrService:ToastrService
+    ) { }
 
   ngOnInit(): void {
     
@@ -22,4 +27,9 @@ cartItems:CartItem[]=[];
     this.cartItems = this.cartService.list();
   }
 
+  removeFromCart(product:Product) {
+    this.cartService.removeFromCart(product);
+    this.toastrService.warning("Ürün Sepetinizden Kaldırıldı." + product.productName);
+
+  }
 }
